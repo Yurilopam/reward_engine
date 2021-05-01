@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_score: 1
+  login_streak: 1
+  last_login_date: 2021-05-01
+
+two:
+  total_score: 1
+  login_streak: 1
+  last_login_date: 2021-05-01

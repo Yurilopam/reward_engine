@@ -1,0 +1,32 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :total_score %>
+    <%= form.number_field :total_score, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :login_streak %>
+    <%= form.number_field :login_streak, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :last_login_date %>
+    <%= form.date_select :last_login_date, class:"form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class:"btn btn-primary" %>
+  </div>
+<% end %>
