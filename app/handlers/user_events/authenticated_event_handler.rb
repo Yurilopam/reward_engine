@@ -1,6 +1,6 @@
-class UserEvents::UserAuthenticatedEvent
+class UserEvents::AuthenticatedEventHandler
 
-  def process(params)
+  def call(params)
     user = User.find_by(id:params[:user_id])
     if user.last_login_date == Date.current
       return

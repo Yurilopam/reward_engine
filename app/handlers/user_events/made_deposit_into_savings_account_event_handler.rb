@@ -1,9 +1,9 @@
 require 'httparty'
 require 'json'
 
-class UserEvents::UserMadeDepositIntoSavingsAccountEvent
+class UserEvents::MadeDepositIntoSavingsAccountEventHandler
 
-  def process(params)
+  def call(params)
     user_bank = params[:user_bank]
     unless user_bank.nil?
       user = User.find_by(id:params[:user_id])

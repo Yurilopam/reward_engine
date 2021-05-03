@@ -1,6 +1,6 @@
-class UserEvents::UserPaidBillEvent
+class UserEvents::PaidBillEventHandler
 
-  def process(params)
+  def call(params)
     payment_due_date = params[:payment_due_date]
     payment_date = params[:payment_date]
     payment_amount = params[:payment_amount]
