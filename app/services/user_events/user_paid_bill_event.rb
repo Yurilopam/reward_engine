@@ -1,4 +1,4 @@
-class UserPaidBillEvent
+class UserEvents::UserPaidBillEvent
 
   def process(params)
     payment_due_date = params[:payment_due_date]

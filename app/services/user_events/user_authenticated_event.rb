@@ -1,4 +1,4 @@
-class UserAuthenticatedEvent
+class UserEvents::UserAuthenticatedEvent
 
   def process(params)
     user = User.find_by(id:params[:user_id])

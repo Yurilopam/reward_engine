@@ -1,7 +1,7 @@
 require 'httparty'
 require 'json'
 
-class UserMadeDepositIntoSavingsAccountEvent
+class UserEvents::UserMadeDepositIntoSavingsAccountEvent
 
   def process(params)
     user_bank = params[:user_bank]
