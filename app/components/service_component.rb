@@ -1,9 +1,13 @@
 class ServiceComponent
   include Singleton
 
+  def initialize
+    @user_event_handler_component = UserEventsHandlerComponent.instance
+  end
+
   def provides_user_events_handlers
     @user_event_handlers ||= {
-      UserAuthenticated: UserEvents::AuthenticatedEventHandler.new,
+      UserAuthenticated: @user_event_handler_component.provides_authenticated_event_handler,
       UserPaidBill: UserEvents::PaidBillEventHandler.new,
       UserMadeDepositIntoSavingsAccount: UserEvents::MadeDepositIntoSavingsAccountEventHandler.new
     }
