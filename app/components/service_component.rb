@@ -8,7 +8,7 @@ class ServiceComponent
   def provides_user_events_handlers
     @user_event_handlers ||= {
       UserAuthenticated: @user_event_handler_component.provides_authenticated_event_handler,
-      UserPaidBill: UserEvents::PaidBillEventHandler.new,
+      UserPaidBill: @user_event_handler_component.provides_paid_bill_event_handler,
       UserMadeDepositIntoSavingsAccount: UserEvents::MadeDepositIntoSavingsAccountEventHandler.new
     }
   end
