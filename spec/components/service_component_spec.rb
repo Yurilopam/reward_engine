@@ -4,6 +4,7 @@ RSpec.describe ServiceComponent do
 
   before(:all) do
     @subject = ServiceComponent.instance
+    @user_events_handler_component_mock = UserEventsHandlerComponent.instance
   end
 
   context 'Given a instance ' do
@@ -11,9 +12,9 @@ RSpec.describe ServiceComponent do
       it 'should return map of user events handlers' do
         result = @subject.provides_user_events_handlers
         expected_keys = [ :UserAuthenticated, :UserPaidBill, :UserMadeDepositIntoSavingsAccount ]
-        expected_values = [ UserEvents::AuthenticatedEventHandler.new.class,
-                            UserEvents::PaidBillEventHandler.new.class,
-                            UserEvents::MadeDepositIntoSavingsAccountEventHandler.new.class ]
+        expected_values = [ @user_events_handler_component_mock.provides_authenticated_event_handler.class,
+                            @user_events_handler_component_mock.provides_paid_bill_event_handler.class,
+                            @user_events_handler_component_mock.provides_made_deposit_into_savings_account_event_handler.class ]
 
         expect(result.keys.size).to eq 3
         expect(result.keys).to eq expected_keys

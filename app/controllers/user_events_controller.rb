@@ -7,11 +7,25 @@ class UserEventsController < ApplicationController
   end
 
   def received
-    event_type = params[:type] || "EventTypeUnknown"
-    unless params[:user_id].nil?
-      @user_events_service.process_user_event(event_type, params)
+    if params[:user_id].nil? || params[:type].nil?
+      return error_result 'Missing request params'
     end
-    render json: { status: "ok"}
+
+    event_type = params[:type]
+
+    @user_events_service.process_user_event(event_type, params)
+
+    render json: success_result
   end
+
+  private
+
+    def error_result( message = '' )
+      { status: "ERROR", message: message }
+    end
+
+    def success_result
+      { status: "SUCCESS" }
+    end
 
 end

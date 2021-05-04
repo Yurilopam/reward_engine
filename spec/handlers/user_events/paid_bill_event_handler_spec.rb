@@ -15,7 +15,20 @@ RSpec.describe UserEvents::PaidBillEventHandler do
       allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(@user_mock)
     end
 
-    context 'when payment info isnt null ' do
+    context 'when payment params is null' do
+      before(:each) do
+        @params_mock = { payment_due_date: nil, payment_date: nil, payment_amount: nil }
+
+      end
+      it "should return error" do
+        result = @subject.call @params_mock
+        expected_result = { message: "Missing payment params", status: "ERROR" }
+
+        expect(result).to eq expected_result
+      end
+    end
+
+    context 'when payment params is not null' do
       context 'and user paid bill before or at expire date ' do
         before(:each) do
           @date_current = Date.current
@@ -33,7 +46,7 @@ RSpec.describe UserEvents::PaidBillEventHandler do
         end
         it 'should give user points based on the total payment amount ' do
           result = @subject.call @params_mock
-          expected_result = { message: "User earned points" }
+          expected_result = { status: "SUCCESS" }
 
           expect(result).to eq expected_result
           expect(@user_model_mock).to have_received(:find_by).with({ id: @user_id_mock }).exactly(1).times.ordered

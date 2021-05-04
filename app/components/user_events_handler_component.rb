@@ -1,3 +1,6 @@
+require 'httparty'
+require 'json'
+
 class UserEventsHandlerComponent
   include Singleton
 
@@ -7,6 +10,10 @@ class UserEventsHandlerComponent
 
   def provides_paid_bill_event_handler
     @paid_bill_event_handler ||= UserEvents::PaidBillEventHandler.new User
+  end
+
+  def provides_made_deposit_into_savings_account_event_handler
+    @made_deposit_into_savings_account_event_handler ||= UserEvents::MadeDepositIntoSavingsAccountEventHandler.new User, HTTParty, Settings, JSON
   end
 
 end

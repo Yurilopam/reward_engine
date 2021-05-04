@@ -25,7 +25,7 @@ RSpec.describe UserEvents::AuthenticatedEventHandler do
       end
       it 'should return user already authenticated today as result' do
         result = @subject.call @params_mock
-        expected_result = { message: "User already authenticated today." }
+        expected_result = { message: "User already authenticated today." , status: "ERROR"}
 
         expect(result).to eq expected_result
       end
@@ -44,7 +44,7 @@ RSpec.describe UserEvents::AuthenticatedEventHandler do
       end
       it 'should reset the streak, set the last login date to current date and save the user' do
         result = @subject.call @params_mock
-        expected_result = { message: "User login streak reset and last login date set as today." }
+        expected_result = { message: "User login streak reset and last login date set as today.", status: "SUCCESS" }
 
         expect(result).to eq expected_result
         expect(@user_mock).to have_received(:login_streak=).with(@login_streak_mock).exactly(1).times.ordered
@@ -67,7 +67,7 @@ RSpec.describe UserEvents::AuthenticatedEventHandler do
       end
       it 'should increase login streak and update last login date' do
         result = @subject.call @params_mock
-        expected_result = { message: "User login streak raised by 1 and last login date set as today." }
+        expected_result = { message: "User login streak raised by 1 and last login date set as today.", status: "SUCCESS" }
 
         expect(result).to eq expected_result
         expect(@user_mock).to have_received(:login_streak=).with(@user_login_streak_after_mock).exactly(1).times.ordered
@@ -96,7 +96,7 @@ RSpec.describe UserEvents::AuthenticatedEventHandler do
 
       it 'should add points to the User and increase login streak and update last login date' do
         result = @subject.call @params_mock
-        expected_result = { message: "User login streak raised by 1 and last login date set as today." }
+        expected_result = { message: "User login streak raised by 1 and last login date set as today.", status: "SUCCESS" }
 
         expect(result).to eq expected_result
         expect(@user_mock).to have_received(:login_streak=).with(@user_login_streak_after_mock).exactly(1).times.ordered
