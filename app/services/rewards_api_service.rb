@@ -9,7 +9,7 @@ class RewardsApiService
     user = @user.find_by(id: user_id)
     rewards = @reward.where("cost <= ?", user.total_score)
 
-    if rewards.nil?
+    if rewards.nil? || rewards.empty?
       return error_result 'No reward available for current user'
     end
 
@@ -22,7 +22,4 @@ class RewardsApiService
       { status: "ERROR", message: message }
     end
 
-    def success_result
-      { status: "SUCCESS" }
-    end
 end

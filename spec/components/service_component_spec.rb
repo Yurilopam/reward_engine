@@ -28,5 +28,20 @@ RSpec.describe ServiceComponent do
         expect(result.class).to eq UserEventsService
       end
     end
+
+    context 'when provides_users_api_service() method is called' do
+      it 'should return a new instance of UsersApiService' do
+        result = @subject.provides_users_api_service
+        expect(result.class).to eq UsersApiService
+      end
+    end
+
+    context 'when provides_rewards_api_service() method is called' do
+      it 'should return a new instance of RewardsApiService' do
+        result = @subject.provides_rewards_api_service
+        expect(result.class).to eq RewardsApiService
+      end
+    end
+
   end
 end
