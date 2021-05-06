@@ -2,18 +2,18 @@
 
 The objective of this project is to implement a simple API that receive requests from a SDK.
 
-##Stack
+## Stack
 
 - Ruby v3.0.1
 - Rails v6.1.3.1
 
-##Development
+## Development
 
 Start server `rails c` </br>
 There is a [Postman](https://www.postman.com/downloads/) collection to help with the requests to the application
 
 
-##Endpoints
+## Endpoints
 
 ```
 POST /api/v1/user_events

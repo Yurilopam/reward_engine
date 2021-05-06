@@ -13,19 +13,14 @@ class UserEventsController < ApplicationController
 
     event_type = params[:type]
 
-    @user_events_service.process_user_event(event_type, params)
+    render json: @user_events_service.process_user_event(event_type, params)
 
-    render json: success_result
   end
 
   private
 
     def error_result( message = '' )
       { status: "ERROR", message: message }
-    end
-
-    def success_result
-      { status: "SUCCESS" }
     end
 
 end

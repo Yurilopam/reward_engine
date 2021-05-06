@@ -8,6 +8,10 @@ class UserEvents::AuthenticatedEventHandler
   def call(params)
     user = @user_model.find_by(id:params[:user_id])
 
+    if user.nil?
+      return error_result "User not found"
+    end
+
     if user.last_login_date == @date.current
       return error_result "User already authenticated today."
     end
