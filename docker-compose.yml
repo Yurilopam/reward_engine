@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - database
+      - db
     ports:
       - "3000:3000"
     volumes:
@@ -15,11 +15,16 @@ services:
     environment:
       RAILS_ENV: development
 
-  database:
+  db:
     image: postgres:latest
+    ports:
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_DB: reward_engine
+      POSTGRES_PASSWORD: flourish
 
 volumes:
   db_data:

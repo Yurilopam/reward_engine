@@ -6,6 +6,7 @@ RUN apk add --update --no-cache \
       build-base \
       nodejs \
       postgresql-dev \
+      tzdata \
       yarn
 
 RUN gem install bundler --no-document -v '2.2.15'
@@ -23,8 +24,6 @@ COPY package.json yarn.lock ./
 RUN yarn install --check-files
 
 COPY . ./
-
-EXPOSE 3000
 
 RUN chmod +x ./docker-entrypoint.sh
 RUN chmod +x ./init.sql
