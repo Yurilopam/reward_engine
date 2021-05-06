@@ -7,6 +7,11 @@ class RewardsApiService
 
   def get_available_rewards_list(user_id)
     user = @user.find_by(id: user_id)
+
+    if user.nil?
+      return error_result 'User not find to retrieve rewards'
+    end
+
     rewards = @reward.where("cost <= ?", user.total_score)
 
     if rewards.nil? || rewards.empty?

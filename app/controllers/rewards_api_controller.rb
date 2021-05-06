@@ -1,7 +1,7 @@
 class RewardsApiController < ApplicationController
 
   def initialize
-    @rewards_api_service = ServiceComponent.instance.provides_rewards_api_service
+    @rewards_api_service = ServiceComponent.provides_rewards_api_service
     super
   end
 

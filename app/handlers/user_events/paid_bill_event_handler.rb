@@ -14,6 +14,11 @@ class UserEvents::PaidBillEventHandler
 
     if payment_date <= payment_due_date
       user = @user_model.find_by(id:params[:user_id])
+
+      if user.nil?
+        return error_result "User not found"
+      end
+
       earned_points = ((payment_amount.to_i - payment_amount.to_i % 10)/10) * 50
       user.total_score += earned_points
       user.save

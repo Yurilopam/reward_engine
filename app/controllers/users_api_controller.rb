@@ -2,7 +2,7 @@ class UsersApiController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def initialize
-    @users_api_service = ServiceComponent.instance.provides_users_api_service
+    @users_api_service = ServiceComponent.provides_users_api_service
     super
   end
 
