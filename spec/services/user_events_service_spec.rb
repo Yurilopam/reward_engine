@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe UserEventsService do
   before(:each) do
     @authenticated_event_handler = double(UserEvents::AuthenticatedEventHandler)
-    @event_handlers_mock = double(ServiceComponent.instance.provides_user_events_handlers)
+    @event_handlers_mock = double(ServiceComponent.provides_user_events_handlers)
     @subject = UserEventsService.new @event_handlers_mock
   end
 

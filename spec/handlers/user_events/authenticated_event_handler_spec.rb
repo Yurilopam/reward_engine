@@ -19,6 +19,18 @@ RSpec.describe UserEvents::AuthenticatedEventHandler do
       allow(@date_mock).to receive(:current).and_return(@date_current_mock)
     end
 
+    context  'when user is null' do
+      before(:each) do
+        allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(nil)
+      end
+      it 'should result error message' do
+        result = @subject.call @params_mock
+        expected_result = { message: "User not found" , status: "ERROR"}
+
+        expect(result).to eq expected_result
+      end
+    end
+
     context 'when user last login date is equal to current date' do
       before(:each) do
         allow(@user_mock).to receive(:last_login_date).and_return(@date_current_mock)

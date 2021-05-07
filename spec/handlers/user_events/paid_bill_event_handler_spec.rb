@@ -29,6 +29,22 @@ RSpec.describe UserEvents::PaidBillEventHandler do
     end
 
     context 'when payment params is not null' do
+
+      context 'and user is null' do
+        before(:each) do
+          @date_current = Date.current
+          @payment_amount_mock = 867
+          @params_mock = { user_id: @user_id_mock, payment_due_date: @date_current, payment_date: @date_current, payment_amount: @payment_amount_mock }
+          allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(nil)
+        end
+        it 'should return error message' do
+          result = @subject.call @params_mock
+          expected_result = { message: "User not found", status: "ERROR" }
+
+          expect(result).to eq expected_result
+        end
+      end
+
       context 'and user paid bill before or at expire date ' do
         before(:each) do
           @date_current = Date.current

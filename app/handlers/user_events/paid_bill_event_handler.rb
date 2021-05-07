@@ -8,7 +8,7 @@ class UserEvents::PaidBillEventHandler
     payment_due_date = params[:payment_due_date]
     payment_date = params[:payment_date]
     payment_amount = params[:payment_amount]
-    if payment_due_date.nil? && payment_date.nil? && payment_amount.nil?
+    if payment_due_date.nil? || payment_date.nil? || payment_amount.nil?
       return error_result 'Missing payment params'
     end
 

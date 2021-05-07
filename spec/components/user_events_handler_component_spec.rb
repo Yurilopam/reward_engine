@@ -10,7 +10,7 @@ RSpec.describe UserEventsHandlerComponent do
     @httparty = double(HTTParty)
     @settings = double(Settings)
     @json = double(JSON)
-    @subject = UserEventsHandlerComponent.instance
+    @subject = UserEventsHandlerComponent
   end
 
   context 'when provides_authenticated_event_handler() method is called' do

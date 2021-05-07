@@ -17,6 +17,32 @@ RSpec.describe UsersApiService do
       allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(@user_mock)
       allow(@reward_model_mock).to receive(:find_by).with({ id: @redeemed_reward_id_mock }).and_return(@reward_mock)
     end
+
+    context 'when user is null' do
+      before(:each) do
+        allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(nil)
+      end
+      it 'should return error message' do
+        result = @subject.redeem_user_reward(@user_id_mock, @redeemed_reward_id_mock)
+        expected_result = { message: "User not found", status: "ERROR" }
+
+        expect(result).to eq expected_result
+      end
+    end
+
+    context 'when reward is null' do
+      before(:each) do
+        allow(@reward_model_mock).to receive(:find_by).with({ id: @redeemed_reward_id_mock }).and_return(nil)
+      end
+      it 'should return error message' do
+        result = @subject.redeem_user_reward(@user_id_mock, @redeemed_reward_id_mock)
+        expected_result = { message: "Reward not found", status: "ERROR" }
+
+        expect(result).to eq expected_result
+      end
+    end
+
+
     context 'when user has less points than the reward to redeem ' do
       before do
         @user_total_cost_mock = 1000

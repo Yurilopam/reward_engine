@@ -18,6 +18,19 @@ RSpec.describe RewardsApiService do
       allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(@user_mock)
       allow(@user_mock).to receive(:total_score).and_return(@user_total_score)
     end
+
+    context 'when user is null' do
+      before(:each) do
+        allow(@user_model_mock).to receive(:find_by).with({ id: @user_id_mock }).and_return(nil)
+      end
+      it 'should return error message' do
+        result = @subject.get_available_rewards_list(@user_id_mock)
+        expected_result = { message: "User not find to retrieve rewards", status: "ERROR"}
+
+        expect(result).to eq expected_result
+      end
+    end
+
     context 'when user has available rewards to redeem ' do
       before(:each) do
       allow(@reward_model_mock).to receive(:where).with(@reward_where_conditional_mock, @user_total_score).and_return([@reward_result_mock])

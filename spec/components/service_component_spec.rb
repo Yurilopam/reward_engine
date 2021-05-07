@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe ServiceComponent do
 
   before(:all) do
-    @subject = ServiceComponent.instance
-    @user_events_handler_component_mock = UserEventsHandlerComponent.instance
+    @subject = ServiceComponent
+    @user_events_handler_component_mock = UserEventsHandlerComponent
   end
 
   context 'Given a instance ' do
