@@ -15,15 +15,17 @@ The objective of this project is to implement a simple API that receive requests
 
 `docker-compose up -d`
 
-Access `localhost:3000/users`
+Access `localhost:3000`
 
 ## How to use
+
+To execute the happy path of the API it is necessary to create user and reward, you can do this through the web interface
 
 There is a Postman [collection](https://www.getpostman.com/collections/87097dfec79fc8c87a4e) to help with the requests to the application
 
 ## Development
 
-Start server `rails c` </br>
+Start server with `rails s`, have fun!</br>
 
 ## Endpoints
 
