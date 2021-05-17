@@ -8,13 +8,13 @@ RSpec.describe ServiceComponent do
   end
 
   context 'Given a instance ' do
-    context 'when provides_user_events_handlers() method is called' do
+    context 'when resolve(user_events_handlers) method is called' do
       it 'should return map of user events handlers' do
-        result = @subject.provides_user_events_handlers
+        result = @subject.resolve(:user_event_handlers)
         expected_keys = [ :UserAuthenticated, :UserPaidBill, :UserMadeDepositIntoSavingsAccount ]
-        expected_values = [ @user_events_handler_component_mock.provides_authenticated_event_handler.class,
-                            @user_events_handler_component_mock.provides_paid_bill_event_handler.class,
-                            @user_events_handler_component_mock.provides_made_deposit_into_savings_account_event_handler.class ]
+        expected_values = [ @user_events_handler_component_mock.resolve(:authenticated_event_handler).class,
+                            @user_events_handler_component_mock.resolve(:paid_bill_event_handler).class,
+                            @user_events_handler_component_mock.resolve(:made_deposit_into_savings_account_event_handler).class ]
 
         expect(result.keys.size).to eq 3
         expect(result.keys).to eq expected_keys
@@ -22,23 +22,23 @@ RSpec.describe ServiceComponent do
       end
     end
 
-    context 'when provides_user_events_service() method is called' do
+    context 'when resolve(user_events_service) method is called' do
       it 'should return a new instance of UserEventsService' do
-        result = @subject.provides_user_events_service
+        result = @subject.resolve(:user_events_service)
         expect(result.class).to eq UserEventsService
       end
     end
 
-    context 'when provides_users_api_service() method is called' do
+    context 'when resolve(users_api_service) method is called' do
       it 'should return a new instance of UsersApiService' do
-        result = @subject.provides_users_api_service
+        result = @subject.resolve(:users_api_service)
         expect(result.class).to eq UsersApiService
       end
     end
 
-    context 'when provides_rewards_api_service() method is called' do
+    context 'when resolve(rewards_api_service) method is called' do
       it 'should return a new instance of RewardsApiService' do
-        result = @subject.provides_rewards_api_service
+        result = @subject.resolve(:rewards_api_service)
         expect(result.class).to eq RewardsApiService
       end
     end

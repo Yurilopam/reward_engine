@@ -13,6 +13,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'httparty', '~> 0.18.1'
 gem 'config', '~> 3.1'
 gem 'pg', '~> 1.2', '>= 1.2.3'
+gem 'logging', '~> 2.3'
+gem 'dry-auto_inject', '~> 0.7.0'
+gem 'dry-container', '~> 0.7.2'
 
 
 group :development, :test do

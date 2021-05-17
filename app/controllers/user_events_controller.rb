@@ -1,20 +1,16 @@
-class UserEventsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+Import = Dry::AutoInject(ServiceComponent)
 
-  def initialize
-    @user_events_service = ServiceComponent.provides_user_events_service
-    super
-  end
+class UserEventsController < ApplicationController
+  include Import[:user_events_service]
+  skip_before_action :verify_authenticity_token
 
   def received
 
-    if params[:user_id].nil? || params[:type].nil?
-      return error_result 'Missing request params'
-    end
+    return error_result 'Missing request params' if params[:user_id].nil? || params[:type].nil?
 
     event_type = params[:type]
 
-    render json: @user_events_service.process_user_event(event_type, params)
+    render json: user_events_service.process_user_event(event_type, params)
 
   end
 

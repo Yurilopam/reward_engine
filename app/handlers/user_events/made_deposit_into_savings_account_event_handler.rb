@@ -14,25 +14,17 @@ class UserEvents::MadeDepositIntoSavingsAccountEventHandler
   def call(params)
     user_bank = params[:user_bank]
 
-    if user_bank.nil?
-      return error_result "Invalid user bank"
-    end
+    return error_result "Invalid user bank" if user_bank.nil?
 
     user = @user_model.find_by(id: params[:user_id])
 
-    if user.nil?
-      return error_result 'Invalid user'
-    end
+    return error_result 'Invalid user' if user.nil?
 
-    if user.total_score < MINIMUM_TOTAL_SCORE
-      return error_result "User total score less than required"
-    end
+    return error_result "User total score less than required" if user.total_score < MINIMUM_TOTAL_SCORE
 
     base_uri = @settings.banks[user_bank]
 
-    if base_uri.nil?
-      return error_result 'Internal error (base uri)'
-    end
+    return error_result 'Internal error (base uri)' if base_uri.nil?
 
     uri = base_uri % user.id
     response = @http.get(uri)
@@ -41,15 +33,11 @@ class UserEvents::MadeDepositIntoSavingsAccountEventHandler
       account["type"] == "SAVINGS_ACCOUNT"
     end
 
-    if savings_account.nil?
-      return error_result 'Invalid savings account'
-    end
+    return error_result 'Invalid savings account' if savings_account.nil?
 
     savings_account_balance = savings_account["balance"]
 
-    if savings_account_balance <= MINIMUM_SAVINGS_ACCOUNT_BALANCE
-      return error_result 'Invalid savings account balance'
-    end
+    return error_result 'Invalid savings account balance' if savings_account_balance <= MINIMUM_SAVINGS_ACCOUNT_BALANCE
 
     user.total_score += POINTS_EARNED
     user.save
